@@ -105,3 +105,16 @@ resource "azurerm_mysql_flexible_server_configuration" "audit_log_events" {
   server_name         = azurerm_mysql_flexible_server.nova.name
   value               = "CONNECTION,ADMIN,DDL"
 }
+
+# --------------------------------------------------
+# MYSQL - APPLICATION DATABASE
+# --------------------------------------------------
+
+resource "azurerm_mysql_flexible_database" "nova" {
+  name                = "nova_retail"
+  resource_group_name = azurerm_resource_group.nova.name
+  server_name         = azurerm_mysql_flexible_server.nova.name
+
+  charset   = "utf8mb4"
+  collation = "utf8mb4_unicode_ci"
+}

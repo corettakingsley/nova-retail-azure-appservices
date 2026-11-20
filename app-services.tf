@@ -40,6 +40,8 @@ resource "azurerm_linux_web_app" "frontend" {
   site_config {
     always_on = false
 
+    app_command_line = "pm2 serve /home/site/wwwroot 8080 --spa --no-daemon"
+
     application_stack {
       node_version = "22-lts"
     }
@@ -94,11 +96,12 @@ resource "azurerm_linux_web_app" "backend" {
   site_config {
     always_on = false
 
+    app_command_line = "python -m uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
     application_stack {
       python_version = "3.12"
     }
   }
-
   tags = {
     Project     = "Nova-Retail"
     Environment = "Development"
